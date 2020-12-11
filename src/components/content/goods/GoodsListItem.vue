@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item ">
-    <img :src="goodsItem.show.img" alt="" @load="loadImage" />
+  <div class="goods-item " @click="itemClick">
+    <img :src="showImage" alt="" @load="loadImage" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -20,8 +20,17 @@ export default {
     }
   },
   methods: {
-    loadImage() {
+    loadImage() { 
       this.$bus.$emit("loadImage");
+    },
+    itemClick() {
+      this.$router.push("/detail/" + this.goodsItem.iid);
+    }
+  },
+  computed: {
+    showImage() {
+      // console.log("this.goodsItem.image", this.goodsItem.image);
+      return this.goodsItem.image || this.goodsItem.show.img;
     }
   }
 };

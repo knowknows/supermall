@@ -3,7 +3,7 @@
     <Swiper>
       <SwiperItem v-for="(item, index) in banners" :key="index">
         <a :href="item.link">
-          <img :src="item.image" alt="" />
+          <img :src="item.image" alt="" @load="imageload" />
         </a>
       </SwiperItem>
     </Swiper>
@@ -20,9 +20,22 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      isflage: false
+    };
+  },
   components: {
     Swiper,
     SwiperItem
+  },
+  methods: {
+    imageload() {
+      if (!this.isflage) {
+        this.$emit("swiperimageload");
+        this.isflage = true;
+      }
+    }
   }
 };
 </script>

@@ -31,15 +31,18 @@ export default {
       pullUpLoad: this.pullUpLoad
     });
     //2:监听滚动的位置
+
     this.scroll.on("scroll", position => {
       this.$emit("scroll", position);
       // console.log(position);
     });
     //3:监听上拉加载事件
-    this.scroll.on("pullingUp", () => {
-      this.$emit("pullingUp");
-      // console.log('pullingUp');
-    });
+    if (this.pullUpLoad) {
+      this.scroll.on("pullingUp", () => {
+        this.$emit("pullingUp");
+        // console.log('pullingUp');
+      });
+    }
   },
   methods: {
     scrollTo(x, y, time = 500) {
@@ -49,7 +52,12 @@ export default {
       this.scroll && this.scroll.finishPullUp();
     },
     refresh() {
+      // console.log(111);
       this.scroll && this.scroll.refresh();
+    },
+    getScrollY() {
+      // console.log(this.scroll.y);
+      return this.scroll.y ? this.scroll.y : 0;
     }
   },
   computed: {}
